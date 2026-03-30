@@ -7,16 +7,18 @@ import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class Profiler {
-    private ArrayList<Integer> data;
+    private ArrayList<Integer> inputData;
+    private ArrayList<Integer> resultData;
     private Sort sort;
     private HashMap<String, Integer> lastResult = new HashMap<>();
 
     private void initResult() {
+        resultData = null;
         lastResult = new HashMap<>();
     }
 
     void setData(ArrayList<Integer> data) {
-        this.data = data;
+        this.inputData = data;
         initResult();
     }
 
@@ -26,7 +28,7 @@ public class Profiler {
     }
 
     private boolean isReadyToRun() {
-        return data != null && sort != null;
+        return inputData != null && sort != null;
     }
 
     void runLib() {
@@ -34,7 +36,8 @@ public class Profiler {
             System.out.println("setData, setLib을 완료했는지 확인하세요");
             return;
         }
-        int swapCnt = this.sort.sort(this.data);
+        resultData = new ArrayList<>(inputData);
+        int swapCnt = this.sort.sort(this.resultData);
         lastResult.put(this.sort.getName(), swapCnt);
     }
 
@@ -53,8 +56,11 @@ public class Profiler {
             sb.append("------------------------------\n💫 ");
             sb.append(name);
             sb.append(" 테스트 💫\n");
+            sb.append("입력데이터 : [");
+            sb.append(String.join(",", this.inputData.stream().map(String::valueOf).collect(Collectors.toList())));
+            sb.append("]\n");
             sb.append("정렬결과 : [");
-            sb.append(String.join(",", this.data.stream().map(String::valueOf).collect(Collectors.toList())));
+            sb.append(String.join(",", this.resultData.stream().map(String::valueOf).collect(Collectors.toList())));
             sb.append("]\n");
             sb.append("swap횟수 : " + swap + "회");
             System.out.println(sb);

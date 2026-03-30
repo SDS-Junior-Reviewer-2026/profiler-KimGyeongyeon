@@ -18,7 +18,7 @@ public class Main {
         );
         // 시작
         for (Sort sort: sortList){
-            p.setData(new ArrayList<>(Arrays.asList(1,2,3,4)));
+            p.setData(new ArrayList<>(Arrays.asList(5,1,2,3,4)));
             p.setLib(sort);
             p.runLib();
             p.showResult();
