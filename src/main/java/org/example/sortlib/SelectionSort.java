@@ -1,13 +1,24 @@
-package org.example;
+package org.example.sortlib;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class SelectionSort {
+public class SelectionSort implements Sort {
     private int changeCnt = 0;
 
+    @Override
+    public String getName() {
+        return "SelectionSort";
+    }
+    @Override
+    public int sort(ArrayList<Integer> nums) {
+        changeCnt = 0;
+        selectionSort(nums);
+        return getChangeCnt();
+    }
+
     // selection sort 오름차순 예시코드
-    public void selectionSort(ArrayList<Integer> arr) {
+    private void selectionSort(ArrayList<Integer> arr) {
         changeCnt = 0;
         for (int i = 0; i < arr.size(); i++) {
             for (int j = i + 1; j < arr.size(); j++) {
@@ -21,7 +32,7 @@ public class SelectionSort {
         }
     }
 
-    public int getChangeCnt() {
+    private int getChangeCnt() {
         return changeCnt;
     }
 
